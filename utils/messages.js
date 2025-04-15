@@ -10,4 +10,5 @@ module.exports = {
     ACCESS_TOKEN_REQUIRED : "Token is required in header",
     INVALID_TOKEN: "Invalid Token",
     EMPTY_REQUEST_BODY: "Request body cannot be empty",
+    USER_REGISTERED: "User registered successfully",
 }

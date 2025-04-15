@@ -39,7 +39,7 @@ class UserController {
 
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.OK,
-        message: messages.SUCCESS,
+        message: messages.USER_REGISTERED,
         payloadKey: "token",
         data: token,
       });
