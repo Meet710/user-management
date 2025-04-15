@@ -1,11 +1,20 @@
 const mongoose = require("mongoose");
 const ResponseHandler = require("../utils/responseHandler");
 const joi = require("joi");
+const messages = require("../utils/messages");
 class Validation {
   constructor() {
     this.responseHandler = new ResponseHandler();
   }
   validateUser = (req, res, next) => {
+    // Check if req.body is empty
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return this.responseHandler.send(res, {
+        status: this.responseHandler.getCode().codes.UNPROCESSED,
+        message: messages.EMPTY_REQUEST_BODY
+      });
+    }
+  
     const payload = joi.object({
       name: joi
         .string()
@@ -38,7 +47,7 @@ class Validation {
         .required()
         .messages({
           "string.pattern.base": "Enter Valid password",
-          "any.required": `password is required`,
+          "any.required": "Password is required",
         }),
       dob: joi.date().iso().max("now").required().messages({
         "date.base": "Enter a valid date",
@@ -46,17 +55,18 @@ class Validation {
         "any.required": "Enter the date",
       }),
     });
-    console.log(req.body);
     const validation = payload.validate(req.body);
+
     if (validation.error) {
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.UNPROCESSED,
         message: validation.error.message,
       });
     }
+  
     next();
   };
-
+  
   validateUserParams = (req, res, next) => {
     const payload = joi.object({
       id: joi
