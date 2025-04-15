@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
  * @description Handles the configuration and connection to a MongoDB database using Mongoose.
  * @param {string} DB_URI - MongoDB connection string.
  * @method connectDB - Asynchronously connects to the MongoDB database and logs the result.
- */
+ **/
 
 class DatabaseConfig {
   constructor(DB_URI) {

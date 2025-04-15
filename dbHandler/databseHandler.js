@@ -2,7 +2,12 @@ const USER = require("../model/user");
 
 
 /**
- * DatabaseHandler class for performing CRUD operations on the User model.
+ * @class DatabaseHandler
+ * @description
+ * - Handles database interactions for user-related operations.
+ * - Provides methods for saving a new user, getting a user by ID, listing all users, updating a user, and deleting a user.
+ * @constructor
+ * - model - The Mongoose model for user data.
  */
 
 class DatabaseHandler {
@@ -10,12 +15,7 @@ class DatabaseHandler {
     this.model = USER;
   }
 
-  /**
-   * Saves a new user to the database.
-   * @param {Object} user - The user data to be saved.
-   * @returns {Promise<Object>} - The saved user document.
-   * @throws {Error} - If there's an error while saving the user.
-   */
+ //save user
   async saveUser(user) {
     try {
       const result = await this.model.create(user);
@@ -26,12 +26,7 @@ class DatabaseHandler {
     }
   }
 
-  /**
-   * Retrieves a user by email.
-   * @param {string} email - The email of the user to retrieve.
-   * @returns {Promise<Object|null>} - The user document or null if not found.
-   * @throws {Error} - If there's an error while retrieving the user.
-   */
+  //get user by based on data
   async getUser(data) {
     try {
       const result = await this.model.findOne(data).select({ _id :1 , name:1, email:1, DOB:1 });
@@ -42,28 +37,18 @@ class DatabaseHandler {
     }
   }
 
-  /**
-   * Retrieves all users from the database.
-   * @returns {Promise<Array>} - List of all user documents.
-   * @throws {Error} - If there's an error while retrieving users.
-   */
-    
+//get all users
   async getAllUsers() {
     try {
-      const result = await this.model.find().select({ _id :1 , name:1, email:1, DOB:1 });
+      const result = await this.model.find({ isDeleted: false }).select({ _id :1 , name:1, email:1, dob:1 });
       return result;
     } catch (error) {
       console.log("Error in getting all users", error);
       throw new Error(error);
     }
   }
-  /**
-   * Updates a user's data based on their ID.
-   * @param {string} id - The ID of the user to update.
-   * @param {Object} updateData - The data to update in the user document.
-   * @returns {Promise<Object>} - MongoDB update result.
-   * @throws {Error} - If there's an error while updating the user.
-   */
+
+  //update user
   async updateUser(id, updateData) {
     try {
       const result = await this.model.updateOne({ _id: id }, updateData);
@@ -74,12 +59,7 @@ class DatabaseHandler {
     }
   }
 
-  /**
-   * Soft deletes a user by setting `isDeleted` to true.
-   * @param {string} id - The ID of the user to delete.
-   * @returns {Promise<Object>} - MongoDB update result indicating the soft deletion.
-   * @throws {Error} - If there's an error while deleting the user.
-   */
+  //delete user
   async deleteUser(id) {
     try {
       const result = await this.model.updateOne(

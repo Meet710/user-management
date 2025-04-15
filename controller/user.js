@@ -3,6 +3,22 @@ const JwtHelper = require("../utils/jwtHelper");
 const messages = require("../utils/messages");
 const ResponseHandler = require("../utils/responseHandler");
 
+/**
+ @class UserController
+ * @description 
+  -  Handles user-related operations including:
+ * - Creating a new user
+ * - Fetching the logged-in user
+ * - Getting user by ID
+ * - Listing all users
+ * - Deleting a user
+ *
+ @constructor
+ * - DatabaseHandler: Handles database interactions
+ * - ResponseHandler: Formats and sends HTTP responses
+ * - JwtHelper: Generates JWT tokens
+ */
+
 class UserController {
   constructor() {
     this.dbHandler = new DatabaseHandler();
@@ -10,6 +26,7 @@ class UserController {
     this.jwtHelper = new JwtHelper();
   }
 
+  // Create a new user
   async createUser(req, res) {
     try {
       const { name, email, password, dob } = req.body;
@@ -49,21 +66,21 @@ class UserController {
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.INTERNAL_SERVER_ERROR,
         message: messages.SERVER_ERROR_MESSAGE,
-        data: false,
       });
     }
   }
-
+ 
+  //get user based on token
   async getUser(req, res) {
     try {
       const { _id } = req.user;
       const user = await this.dbHandler.getUser({ _id: _id });
 
-      if (!user) { 
+      if (!user) {
         return this.responseHandler.send(res, {
           status: this.responseHandler.getCode().codes.NOT_FOUND,
           message: messages.USER_NOT_FOUND,
-        })
+        });
       }
 
       return this.responseHandler.send(res, {
@@ -72,15 +89,16 @@ class UserController {
         payloadKey: "user",
         data: user,
       });
-      
     } catch (error) {
       console.log("Error in getting user from Token", error);
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.INTERNAL_SERVER_ERROR,
         message: messages.SERVER_ERROR_MESSAGE,
-      })
+      });
     }
   }
+
+  //get user by id
   async getUserById(req, res) {
     try {
       const { id } = req.params;
@@ -99,7 +117,6 @@ class UserController {
         payloadKey: "user",
         data: user,
       });
-
     } catch (error) {
       console.log("Error in getting user", error);
       return this.responseHandler.send(res, {
@@ -109,6 +126,7 @@ class UserController {
     }
   }
 
+  //get all users
   async getAllUsers(req, res) {
     try {
       const users = await this.dbHandler.getAllUsers();
@@ -134,6 +152,7 @@ class UserController {
     }
   }
 
+  //delete user by id
   async deleteUser(req, res) {
     try {
       const { id } = req.params;
@@ -156,7 +175,6 @@ class UserController {
         status: this.responseHandler.getCode().codes.OK,
         message: messages.USER_DELETED,
       });
-      
     } catch (error) {
       console.log("Error in deleting user", error);
       return this.responseHandler.send(res, {
