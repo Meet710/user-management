@@ -11,4 +11,5 @@ module.exports = {
     INVALID_TOKEN: "Invalid Token",
     EMPTY_REQUEST_BODY: "Request body cannot be empty",
     USER_REGISTERED: "User registered successfully",
+    USER_ALREADY_DELETED : "User not found or User already deleted"
 }

@@ -156,13 +156,15 @@ class UserController {
   async deleteUser(req, res) {
     try {
       const { id } = req.params;
-      const user = await this.dbHandler.getUser({ _id: id });
+      const user = await this.dbHandler.getUser({ _id: id , isDeleted: false });
+
       if (!user) {
         return this.responseHandler.send(res, {
           status: this.responseHandler.getCode().codes.NOT_FOUND,
-          message: messages.USER_NOT_FOUND,
+          message: messages.USER_NOT_DELETED,
         });
       }
+
       const deletedUser = await this.dbHandler.deleteUser(id);
       if (!deletedUser) {
         return this.responseHandler.send(res, {
