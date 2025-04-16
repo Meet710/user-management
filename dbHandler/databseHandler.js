@@ -7,7 +7,7 @@ const USER = require("../model/user");
  * - Handles database interactions for user-related operations.
  * - Provides methods for saving a new user, getting a user by ID, listing all users, updating a user, and deleting a user.
  * @constructor
- * - model - The Mongoose model for user data.
+ * - model - The Mongoose model for user data operations.
  */
 
 class DatabaseHandler {

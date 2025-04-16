@@ -1,5 +1,10 @@
 const codes = require('./responseCode');
 
+/**
+ * @class ResponseHandler
+ * @description Handles sending HTTP responses
+ */
+
 class ResponseHandler {
   send(res, options, header = {}) {
     const response = {};

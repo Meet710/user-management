@@ -2,12 +2,21 @@ const JwtHelper = require("../utils/jwtHelper");
 const messages = require("../utils/messages");
 const ResponseHandler = require("../utils/responseHandler");
 
+/**
+ * @class UserAuth
+ * @description Handles user authentication
+ * @constructor
+ * - JwtHelper: Handles JWT token generation and verification
+ * - ResponseHandler: Formats and sends HTTP responses
+ */
+
 class UserAuth {
     constructor() {
         this.jwtHelper = new JwtHelper();
         this.responseHandler = new ResponseHandler();
     }
 
+    // Middleware to verify user authentication
     verifyToken = (req, res, next) => {
         const token = req.headers['authorization'];
 
