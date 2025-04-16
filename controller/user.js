@@ -74,7 +74,7 @@ class UserController {
   async getUser(req, res) {
     try {
       const { _id } = req.user;
-      const user = await this.dbHandler.getUser({ _id: _id });
+      const user = await this.dbHandler.getUser({ _id: _id  , isDeleted: false});
 
       if (!user) {
         return this.responseHandler.send(res, {
@@ -102,7 +102,7 @@ class UserController {
   async getUserById(req, res) {
     try {
       const { id } = req.params;
-      const user = await this.dbHandler.getUser({ _id: id });
+      const user = await this.dbHandler.getUser({ _id: id , isDeleted: false });
 
       if (!user) {
         return this.responseHandler.send(res, {
