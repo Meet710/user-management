@@ -161,7 +161,7 @@ class UserController {
       if (!user) {
         return this.responseHandler.send(res, {
           status: this.responseHandler.getCode().codes.NOT_FOUND,
-          message: messages.USER_NOT_DELETED,
+          message: messages.USER_DELETED,
         });
       }
 
