@@ -4,7 +4,7 @@ A Node.js-based user management system designed to handle user registration, aut
 
 ## Features
 
-- User registration and login
+- User registration
 - Input validation
 - Middleware for request handling
 - Modular code structure
