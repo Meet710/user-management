@@ -113,7 +113,7 @@ class UserController {
 
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.OK,
-        message: messages.SUCCESS,
+        message: messages.USER_FOUND,
         payloadKey: "user",
         data: user,
       });
@@ -139,7 +139,7 @@ class UserController {
 
       return this.responseHandler.send(res, {
         status: this.responseHandler.getCode().codes.OK,
-        message: messages.SUCCESS,
+        message: messages.USER_FOUND,
         payloadKey: "users",
         data: users,
       });
