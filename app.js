@@ -28,6 +28,9 @@ class Server {
 
     initializeRoutes() {
          new UserRoutes(this.app);
+         this.app.get('/', (req, res) => { 
+            res.send('User Management API')
+        })
     }
     startServer() {
         this.app.listen(process.env.PORT || 5000, () => {
