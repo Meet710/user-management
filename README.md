@@ -25,10 +25,12 @@ A Node.js-based user management system designed to handle user registration, aut
    git clone https://github.com/Meet710/user-management.git
    cd user-management
 2 Install dependencies:
-  -npm install
+  ``` bash 
+  npm install
 
-3 start Application
-  - npm start  or npm start dev 
+3 start Application :
+  ``` bash 
+  npm start  or npm start dev 
 
 
 
